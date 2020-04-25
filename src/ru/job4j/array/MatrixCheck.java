@@ -15,7 +15,6 @@ public class MatrixCheck {
     public static boolean monoVertical(char[][] board, int column) {
         boolean result = true;
         for (int i = 0; i < board.length; i++) {
-            System.out.println("Here i am: " + board[column][i]);
             if (board[i][column] != 'X') {
                 result = false;
                 break;
@@ -26,11 +25,23 @@ public class MatrixCheck {
 
     public static char[] extractDiagonal(char[][] board) {
         char[] rsl = new char[board.length];
-        for ( int i = 0; i < board.length; i++ ) {
+        for (int i = 0; i < board.length; i++) {
             rsl[i] = board[i][i];
         }
         return rsl;
     }
 
+    public static boolean isWin(char[][] board) {
+        boolean result = false;
+        char[] diagonal = MatrixCheck.extractDiagonal(board);
+        int index = FindLoop.indexOf(diagonal, 'X');
+        if (index == -1) {
+            return false;
+        }
+        if (monoHorizontal(board, index) || monoVertical(board, index)) {
+            result = true;
+        }
+        return result;
+    }
 
 }
